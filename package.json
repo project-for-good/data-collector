@@ -9,6 +9,7 @@
   "author": "Mikel Burgos Cantero",
   "license": "ISC",
   "dependencies": {
-    "puppeteer": "^19.11.1"
+    "puppeteer": "^19.11.1",
+    "dotenv": "16.0.2"
   }
 }
