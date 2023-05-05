@@ -3,7 +3,7 @@ const puppeteer = require('puppeteer')
 const url = 'https://www.ine.es/jaxiT3/Tabla.htm?t=20193'
 
 async function setFilters() {
-    const browser = await puppeteer.launch({ headless: false })
+    const browser = await puppeteer.launch(/*{ headless: false }*/)
     const page = await browser.newPage()
     await page.setViewport({
         width: 1920,
