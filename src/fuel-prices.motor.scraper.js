@@ -3,7 +3,7 @@ const puppeteer = require('puppeteer')
 const url = 'https://www.motor.es/energia/precios-combustible-hoy'
 
 async function getResults(filters) {
-    const browser = await puppeteer.launch({ headless: false })
+    const browser = await puppeteer.launch(/*{ headless: false }*/)
     const page = await browser.newPage()
     await page.setViewport({
         width: 1920,
@@ -25,8 +25,8 @@ async function getResults(filters) {
 
     await page.focus("table.resultados-table")
     const results = []
-    const fuelTypes = ['Gasolina 95', 'Gasolina 98', 'Gasóleo A', 'Gasóleo A+', 'Gasóleo B']
-    for (let i = 1; i < 6; i++) {
+    const fuelTypes = ['Gasolina 95', 'Gasolina 98', 'Gasóleo A', 'Gasóleo A+']
+    for (let i = 1; i < 5; i++) {
         const result = await page.evaluate((i) => {
             window.scrollTo(0, document.body.scrollHeight / 2);
             const div = document.querySelector(".resultados-table-wrapper")
@@ -34,7 +34,6 @@ async function getResults(filters) {
             const secondTable = document.querySelectorAll(`table.resultados-table`)[1]
             return secondTable.querySelector(`tbody tr:nth-child(${i}) td:nth-child(10) span`).innerHTML.replace(",",".")
         }, i)
-        console.log(result)
         results.push({
             fuelType: fuelTypes[i-1],
             result: parseFloat(result)
