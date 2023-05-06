@@ -1,19 +1,24 @@
 const fs = require('fs')
+const axios = require('axios')
 
-const formatData = (data) => {
 
-    var jsonContent = JSON.stringify(data)
 
-    fs.writeFile("output.json", jsonContent, 'utf8', function (err) {
-        if (err) {
-            console.log("An error occured while writing JSON Object to File.")
-            return console.log(err)
+const sendData = async (data, path) => {
+    try {
+      const res = await axios.post('http://localhost:9000' + path, await data, {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
         }
-
-        console.log("JSON file has been saved.")
-    })
-}
+      })
+      console.log(res.data)
+      console.log("JSON file has been uploaded.")
+    } catch (error) {
+      console.error(error)
+      return error
+    }
+  }
 
 module.exports = {
-    formatData
+    sendData
 }

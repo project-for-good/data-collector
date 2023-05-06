@@ -7,30 +7,26 @@ const formmater = require('./jsonDataFormatter')
 
 // run scrapers
 async function start(scrapPage) {
-  if (scrapPage.includes("www.ine.es")) {
-    formmater.formatData(await ineScraper.scrap())
+  if (scrapPage.includes("www.ine.es/urban")) {
+    formmater.sendData(await ineScraper.scrap(),"/api/v1/urbanIne")
   }
 
   if (scrapPage.includes("www.motor.es")) {
-    formmater.formatData(await fuelScraper.scrap())
+    formmater.sendData(await fuelScraper.scrap(),"/api/v1/motor")
   }
 
-  if (scrapPage.includes("www.population.ine.es")) {
-    formmater.formatData(await population.getData())
+  if (scrapPage.includes("www.ine.es/popularion")) {
+    formmater.sendData(await population.getData(),"/api/v1/populationIne")
   }
 
   if (scrapPage.includes("www.caib.es/ibestat")) {
-    formmater.formatData(await carByperson.scrap())
+    formmater.sendData(await carByperson.scrap(),"/api/v1/vehicles")
   }
 
-  if (scrapPage.includes("www.accuweather.com")) {
-    formmater.formatData(await accuweather.scrap())
+  if (scrapPage.includes("www.accuwheater.com")) {
+    const asd = await accuweather.getResults()
+    await formmater.sendData(asd,"/api/v1/accuwheater")
   }
 }
 
 start(process.env.PAGES_TO_SCRAPE)
-
-//format and send  data
-
-// NOMBRE DE VARIABLE: PAGES_TO_SCRAPE
-// CONTENIDO: www.ine.es;www.motor.es

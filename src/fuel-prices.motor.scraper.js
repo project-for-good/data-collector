@@ -35,6 +35,7 @@ async function getResults(filters) {
             return secondTable.querySelector(`tbody tr:nth-child(${i}) td:nth-child(10) span`).innerHTML.replace(",",".")
         }, i)
         results.push({
+            province: "Baleares",
             fuelType: fuelTypes[i-1],
             result: parseFloat(result)
         })
