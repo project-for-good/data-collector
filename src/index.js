@@ -15,7 +15,7 @@ async function start(scrapPage) {
     formmater.sendData(await fuelScraper.scrap(),"/api/v1/motor")
   }
 
-  if (scrapPage.includes("www.ine.es/popularion")) {
+  if (scrapPage.includes("www.ine.es/population")) {
     formmater.sendData(await population.getData(),"/api/v1/populationIne")
   }
 
