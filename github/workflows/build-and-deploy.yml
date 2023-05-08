@@ -1,0 +1,21 @@
+
+name: Build container image and deploy
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - '*.*.*'
+      - 'v*.*.*'
+
+jobs:
+  build-and-push-image:
+    uses: waymeet/reusable-workflows/.github/workflows/build-container-image.yml@master
+    with:
+      DOCKER_IMAGEBASE: waymeet/tools
+      DOCKER_FILEPATH: ./Dockerfile
+      DOCKER_CONTEXT_X: ./
+      OPTIONAL: dbapi
+    secrets:
+      DOCKERHUB_TOKEN: ${{secrets.DOCKERHUB_TOKEN}}
+      GH_PAT: ${{secrets.GH_PAT}}

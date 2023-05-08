@@ -1,0 +1,17 @@
+
+name: Test Node.js app
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    tags:
+      - '*.*.*'
+      - 'v*.*.*'
+
+jobs:
+  checks:
+    uses: waymeet/reusable-workflows/.github/workflows/test-nodejs-app.yml@master
+    secrets:
+      GH_PAT: ${{secrets.GH_PAT}}
