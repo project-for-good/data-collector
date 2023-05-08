@@ -1,8 +1,6 @@
 
 name: Build container image and deploy
 
-on:
-  workflow_dispatch:
   push:
     tags:
       - '*.*.*'
