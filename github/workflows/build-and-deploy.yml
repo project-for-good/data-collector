@@ -10,9 +10,9 @@ on:
 
 jobs:
   build-and-push-image:
-    uses: waymeet/reusable-workflows/.github/workflows/build-container-image.yml@master
+    uses: project-for-good/reusable-workflows/.github/workflows/build-container-image.yml@master
     with:
-      DOCKER_IMAGEBASE: waymeet/tools
+      DOCKER_IMAGEBASE: luis13byte/tools
       DOCKER_FILEPATH: ./Dockerfile
       DOCKER_CONTEXT_X: ./
       OPTIONAL: dbapi
