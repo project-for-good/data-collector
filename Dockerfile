@@ -1,4 +1,4 @@
-FROM node:18
+FROM ghcr.io/puppeteer/puppeteer:latest
 
 RUN apt-get update \
     && apt-get install -yq gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 \
@@ -23,9 +23,6 @@ COPY . .
 # Configura la variable de entorno para Puppeteer
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 ENV PUPPETEER_EXECUTABLE_PATH /usr/bin/chromium-browser
-
-# Instala Chromium
-RUN apt-get install -yq chromium-browser
 
 EXPOSE 80
 
