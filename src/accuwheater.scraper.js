@@ -4,9 +4,19 @@ const url = 'https://www.accuweather.com/es/es/palma/308014/air-quality-index/30
 
 async function getResults() {
 
-    let results = []
+    const results = {
+        o_3: null,
+        pm_10: null,
+        pm_2_5: null,
+        no_2: null,
+        co: null,
+        so_2: null,
+        aqi: null,
+        municipality: 'Mallorca'
+      }
+
     let headers = ["o_3", "pm_10", "pm_2_5", "no_2", "co", "so_2", "aqi"]
-    const browser = await puppeteer.launch(/*{ headless: false }*/)
+    const browser = await puppeteer.launch({ headless: false })
     const page = await browser.newPage()
     await page.setViewport({
         width: 2920,
@@ -28,18 +38,18 @@ async function getResults() {
     browser.close()
 
     headers.forEach((header, i) => {
-
         results[header] = data[i]
     })
-    results.municipality = "Mallorca"
-
+    
     return results
 
 }
 const scrap = async () => {
+    console.log("accuWheater")
     return await getResults()
 }
 
 module.exports = {
-    scrap
+    scrap,
+    getResults
 }

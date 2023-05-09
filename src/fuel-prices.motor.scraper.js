@@ -3,7 +3,7 @@ const puppeteer = require('puppeteer')
 const url = 'https://www.motor.es/energia/precios-combustible-hoy'
 
 async function getResults(filters) {
-    const browser = await puppeteer.launch(/*{ headless: false }*/)
+    const browser = await puppeteer.launch({ headless: false })
     const page = await browser.newPage()
     await page.setViewport({
         width: 1920,
@@ -21,7 +21,7 @@ async function getResults(filters) {
         element.parentNode.removeChild(element);
     })
 
-    await page.waitForTimeout(1000)
+    await page.waitForTimeout(2000)
 
     await page.focus("table.resultados-table")
     const results = []
@@ -29,12 +29,14 @@ async function getResults(filters) {
     for (let i = 1; i < 5; i++) {
         const result = await page.evaluate((i) => {
             window.scrollTo(0, document.body.scrollHeight / 2);
+            window.scrollTo(0, document.body.scrollHeight / 2);
             const div = document.querySelector(".resultados-table-wrapper")
             div.scrollBy(0, div.scrollHeight);
             const secondTable = document.querySelectorAll(`table.resultados-table`)[1]
             return secondTable.querySelector(`tbody tr:nth-child(${i}) td:nth-child(10) span`).innerHTML.replace(",",".")
         }, i)
         results.push({
+            province: "Baleares",
             fuelType: fuelTypes[i-1],
             result: parseFloat(result)
         })
