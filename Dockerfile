@@ -22,7 +22,7 @@ COPY . .
 
 # Configura la variable de entorno para Puppeteer
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
-ENV PUPPETEER_EXECUTABLE_PATH node_modules/puppeteer/chromium-browser
+ENV PUPPETEER_EXECUTABLE_PATH /usr/bin/chromium-browser
 
 # Instala Chromium
 RUN apt-get install -yq chromium && rm -rf /var/lib/apt/lists/*
