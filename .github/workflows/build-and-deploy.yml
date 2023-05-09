@@ -1,0 +1,20 @@
+
+name: Build container image and deploy
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - '*.*.*'
+      - 'v*.*.*'
+
+jobs:
+  build-and-push-image:
+    uses: project-for-good/reusable-workflows/.github/workflows/build-container-image.yml@master
+    with:
+      DOCKER_IMAGEBASE: luis13cst/tools
+      DOCKER_FILEPATH: ./Dockerfile
+      DOCKER_CONTEXT_X: ./
+      OPTIONAL: data-collector
+    secrets:
+      DOCKERHUB_TOKEN: ${{secrets.DOCKERHUB_TOKEN}}

@@ -10,6 +10,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && export NODE_OPTIONS=--max-old-space-size=4096
 
+
 WORKDIR /app
 
 # Install dependencies
