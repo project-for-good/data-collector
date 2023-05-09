@@ -15,7 +15,6 @@ jobs:
       DOCKER_IMAGEBASE: luis13cst/tools
       DOCKER_FILEPATH: ./Dockerfile
       DOCKER_CONTEXT_X: ./
-      OPTIONAL: dbapi
+      OPTIONAL: data-collector
     secrets:
       DOCKERHUB_TOKEN: ${{secrets.DOCKERHUB_TOKEN}}
-      GH_PAT: ${{secrets.GH_PAT}}
