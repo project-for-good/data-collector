@@ -1,17 +1,32 @@
-FROM node:18 AS build
+FROM node:18
+
+RUN apt-get update \
+    && apt-get install -yq gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 \
+    libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 \
+    libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 \
+    libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 \
+    libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation fonts-noto \
+    hicolor-icon-theme \
+    && rm -rf /var/lib/apt/lists/* \
+    && export NODE_OPTIONS=--max-old-space-size=4096
+
 
 WORKDIR /app
 
 # Install dependencies
 COPY src/ ./src/
-COPY package*.json ./src/index.js ./
+COPY package*.json ./
 RUN npm ci --omit=dev
 
-# Bundle app source
-FROM gcr.io/distroless/nodejs:18 AS base
+COPY . .
 
-COPY --from=build /app /app
+# Configura la variable de entorno para Puppeteer
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
+ENV PUPPETEER_EXECUTABLE_PATH /usr/bin/chromium-browser
 
-WORKDIR /app
+# Instala Chromium
+RUN apt-get install -yq chromium-browser
+
 EXPOSE 80
-CMD ["./src/index.js"]
+
+CMD ["npm", "start"]
