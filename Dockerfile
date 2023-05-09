@@ -8,7 +8,6 @@ RUN apt-get update \
     libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 \
     libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation fonts-noto \
     hicolor-icon-theme \
-    && rm -rf /var/lib/apt/lists/* \
     && export NODE_OPTIONS=--max-old-space-size=4096
 
 
@@ -26,7 +25,7 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 ENV PUPPETEER_EXECUTABLE_PATH node_modules/puppeteer/chromium-browser
 
 # Instala Chromium
-RUN apt-get install -yq chromium
+RUN apt-get install -yq chromium && rm -rf /var/lib/apt/lists/*
 
 EXPOSE 80
 
