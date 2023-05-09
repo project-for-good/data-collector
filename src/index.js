@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const ineScraper = require('./urban-travels.ine.scraper')
 const fuelScraper = require('./fuel-prices.motor.scraper')
 const population = require('./population.ine')
